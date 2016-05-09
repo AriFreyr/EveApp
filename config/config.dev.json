@@ -1,0 +1,6 @@
+{
+    "redirect_uri": "http://localhost:3000/login/callback",
+    "client_id": "af53453fb99f4724a3afe77917d48203",
+    "scope": "publicData",
+    "state": "test"
+}

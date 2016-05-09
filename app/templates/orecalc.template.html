@@ -1,0 +1,84 @@
+<div class="col-md-6 col-md-offset-3">
+    <form (ngSubmit)="onSubmit()" #oreForm="ngForm">
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label for="base-yield">Base yield in %</label>
+                <input class="form-control" type="text" name="base-yield" required="required" [(ngModel)]="model.baseyield" ngControl="base-yield">
+            </div>
+            <div class="col-md-4">
+                <label for="wormhole-bonus">Space type bonus</label>
+                <select class="form-control" name="wormhole-bonus" [(ngModel)]="model.spacebonus">
+                    <option *ngFor="let b of spaceBonus" [value]="b">{{b}}%</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="implant-bonus">Implant bonus</label>
+                <select class="form-control" name="implant-bonus" [(ngModel)]="model.implantbonus">
+                    <option *ngFor="let b of implantBonus" [value]="b">{{b}}%</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label for="reprocessing-bonus">Reprocessing skill level</label>
+                <select class="form-control" name="reprocessing-bonus" [(ngModel)]="model.reprskill">
+                    <option *ngFor="let b of skillLevels" [value]="b">{{b}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="reprocessing-eff-bonus">Reprocessing efficiency skill level</label>
+                <select class="form-control" name="reprocessing-eff-bonus" [(ngModel)]="model.repreffskill">
+                    <option *ngFor="let b of skillLevels" [value]="b">{{b}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="ore-spec-bonus">Ore spec skill level</label>
+                <select class="form-control" name="ore-spec-bonus" [(ngModel)]="model.oreeffskill">
+                    <option *ngFor="let b of skillLevels" [value]="b">{{b}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <h3>Required minerals</h3>
+                <label for="trit-req">Tritanium</label>
+                <input class="form-control" type="text" name="trit-req" [(ngModel)]="model.oreyield.tritanium" ngControl="trit-req">
+                <label for="pye-req">Pyerite</label>
+                <input class="form-control" type="text" name="pye-req" [(ngModel)]="model.oreyield.pyerite" ngControl="pye-req">
+                <label for="mex-req">Mexallon</label>
+                <input class="form-control" type="text" name="mex-req" [(ngModel)]="model.oreyield.mexallon" ngControl="mex-req">
+                <label for="iso-req">Isogen</label>
+                <input class="form-control" type="text" name="iso-req" [(ngModel)]="model.oreyield.isogen" ngControl="iso-req">
+                <label for="nocx-req">Nocxium</label>
+                <input class="form-control" type="text" name="nocx-req" [(ngModel)]="model.oreyield.nocxium" ngControl="nocx-req">
+                <label for="zyd-req">Zydrine</label>
+                <input class="form-control" type="text" name="zyd-req" [(ngModel)]="model.oreyield.zydrine" ngControl="zyd-req">
+                <label for="mega-req">Megacyte</label>
+                <input class="form-control" type="text" name="mega-req" [(ngModel)]="model.oreyield.megacyte" ngControl="mega-req">
+                <label for="morph-req">Morphite</label>
+                <input class="form-control" type="text" name="morph-req" [(ngModel)]="model.oreyield.morphite" ngControl="morph-req">
+            </div>
+            <div class="col-md-4 calc-info">
+                <h3>-or-</h3>
+            </div>
+            <div class="col-md-4 calc-info">
+                <h2>Coming soon</h2>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default" [disabled]="!oreForm.form.valid">Calculate</button>
+    </form>
+    <div class="ore-result" [hidden]="!submitted">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th *ngFor="let r of oreResults">{{r.name}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td *ngFor="let r of oreResults; let i = index">{{r.value}}<span [ngSwitch]="i"><span *ngSwitchWhen="0"></span><span *ngSwitchWhen="1"> ISK</span><span *ngSwitchDefault> Units</span></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
