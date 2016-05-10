@@ -1,3 +1,5 @@
+import { Yield } from './yield';
+
 export class OreCalc {
 
     constructor(
