@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <base href="/">
+    <title>Excel online</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="node_modules/javascript-lp-solver/prod/solver.js"></script>
+    <!-- inject:css -->
+    <!-- endinject -->
+  </head>
+
+  <!-- 3. Display the application -->
+  <body>
+    <eve-app>Loading...</eve-app>
+
+    <script>
+     // Fixes undefined module function in SystemJS bundle
+     function module() {}
+     </script>
+
+     <!-- shims:js -->
+     <!-- endinject -->
+
+     <% if (ENV === 'dev') { %>
+     <script>
+       System.config(<%=
+         JSON.stringify(SYSTEM_CONFIG, null, 2)
+       %>)
+     </script>
+     <% } %>
+
+     <!-- libs:js -->
+     <!-- endinject -->
+
+     <!-- inject:js -->
+     <!-- endinject -->
+
+     <% if (ENV === 'dev') { %>
+     <script>
+     System.import('<%= BOOTSTRAP_MODULE %>')
+       .catch(function (e) {
+         console.error(e,
+           'Report this error at https://github.com/mgechev/angular2-seed/issues');
+       });
+     </script>
+     <% } %>
+  </body>
+
+</html>
