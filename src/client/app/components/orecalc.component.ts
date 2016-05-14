@@ -23,6 +23,7 @@ export class OrecalcComponent implements OnInit {
     spaceBonus = [0, 6, 12];
     submitted = false;
     oreResults: any[];
+    adjustedPrice: string;
 
     private marketOres: any[];
     private yields: any[];
@@ -82,9 +83,18 @@ export class OrecalcComponent implements OnInit {
 
         let res = solver.Solve(solverModel, 0.5);
         _.forIn(res, (value, key) => {
-            this.oreResults.push({'name': key, 'value': Math.ceil(value).toLocaleString('de')});
+            this.oreResults.push({'name': key, 'value': Math.ceil(value).toLocaleString('de'), 'price': this.getPriceForOre(key) });
         });
 
+        let adjPrice: number = 0;
+
+        _(this.oresWithYield).forEach(value => {
+            if (res[value.name]) {
+                adjPrice += value.price * res[value.name];
+            }
+        });
+
+        this.adjustedPrice = Math.ceil(adjPrice).toLocaleString('de');
 
         this.submitted = true;
     }
@@ -98,6 +108,15 @@ export class OrecalcComponent implements OnInit {
 
         return result;
 
+    }
+
+    private getPriceForOre(name: string): number {
+        let ore = _.find(this.oresWithYield, (ore) => { return ore.name === name; });
+
+        if (ore) {
+            return ore.price
+        }
+        return 0;
     }
 
     private formatData() {
