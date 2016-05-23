@@ -36,20 +36,6 @@ export class OrecalcComponent implements OnInit {
         this.getMarketData('10000002');
     }
 
-    private getMarketData(regionId: string) {
-        this.marketService.getOrePrices(regionId).subscribe(
-            data => { this.marketOres = <any[]>data; },
-            error => { console.log(error); },
-            () => {
-                this.itemService.getOreYield().subscribe(
-                    data => { this.yields = <any[]>data; },
-                    error => { console.log(error); },
-                    () => { this.formatData(); }
-                );
-            }
-        );
-    }
-
     regionChange(regionId) {
         this.getMarketData(regionId);
     }
@@ -107,6 +93,20 @@ export class OrecalcComponent implements OnInit {
         this.submitted = true;
     }
 
+    private getMarketData(regionId: string) {
+        this.marketService.getOrePrices(regionId).subscribe(
+            data => { this.marketOres = <any[]>data; },
+            error => { console.log(error); },
+            () => {
+                this.itemService.getOreYield().subscribe(
+                    data => { this.yields = <any[]>data; },
+                    error => { console.log(error); },
+                    () => { this.formatData(); }
+                );
+            }
+        );
+    }
+
     private recalculateYield(oldYield: Yield, efficiency: number): Yield {
         let result: Yield = new Yield();
 
@@ -122,7 +122,7 @@ export class OrecalcComponent implements OnInit {
         let ore = _.find(this.oresWithYield, (ore) => { return ore.name === name; });
 
         if (ore) {
-            return ore.price
+            return ore.price;
         }
         return 0;
     }

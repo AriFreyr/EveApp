@@ -14,7 +14,9 @@ export class MarketService {
     getOrePrices(regionId: string) {
         let obsArr: any[] = new Array<any>();
         for (var i = this.ore_index_start; i <= this.ore_index_end; i++) {
-            obsArr.push(this.http.get(`${this.server_url}/market/${regionId}/orders/sell/?type=${this.server_url}/types/${i}/`).map(this.extractData).catch(this.handleError));
+            obsArr.push(this.http.get(`${this.server_url}/market/${regionId}/orders/sell/?type=${this.server_url}/types/${i}/`)
+                .map(this.extractData)
+                .catch(this.handleError));
         }
         return Observable.forkJoin(
             obsArr
