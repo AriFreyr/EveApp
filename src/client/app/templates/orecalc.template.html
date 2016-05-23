@@ -1,17 +1,24 @@
 <div class="col-md-6 col-md-offset-3">
     <form (ngSubmit)="onSubmit()" #oreForm="ngForm">
         <div class="form-group row">
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <label for="region">Region</label>
+                <select class="form-control" name="region" (change)="regionChange($event.target.value)">
+                    <option value="10000002" selected="true">Forge(Jita)</option>
+                    <option value="10000043">Domain(Amarr)</option>
+                </select>
+            </div>
+            <div class="col-md-3">
                 <label for="base-yield">Base yield in %</label>
                 <input class="form-control" type="text" name="base-yield" required="required" [(ngModel)]="model.baseyield" ngControl="base-yield">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="wormhole-bonus">Space type bonus</label>
                 <select class="form-control" name="wormhole-bonus" [(ngModel)]="model.spacebonus">
                     <option *ngFor="let b of spaceBonus" [value]="b">{{b}}%</option>
                 </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="implant-bonus">Implant bonus</label>
                 <select class="form-control" name="implant-bonus" [(ngModel)]="model.implantbonus">
                     <option *ngFor="let b of implantBonus" [value]="b">{{b}}%</option>

@@ -33,7 +33,11 @@ export class OrecalcComponent implements OnInit {
     constructor(private marketService: MarketService, private itemService: ItemService) { }
 
     ngOnInit() {
-        this.marketService.getOrePrices().subscribe(
+        this.getMarketData('10000002');
+    }
+
+    private getMarketData(regionId: string) {
+        this.marketService.getOrePrices(regionId).subscribe(
             data => { this.marketOres = <any[]>data; },
             error => { console.log(error); },
             () => {
@@ -44,6 +48,10 @@ export class OrecalcComponent implements OnInit {
                 );
             }
         );
+    }
+
+    regionChange(regionId) {
+        this.getMarketData(regionId);
     }
 
     onSubmit() {
@@ -120,6 +128,7 @@ export class OrecalcComponent implements OnInit {
     }
 
     private formatData() {
+        this.oresWithYield = new Array<Ore>();
         _(this.marketOres).forEach(value => {
             let cheapestItem: any = _.sortBy(value.items, item => { return (item as any).price; })[0];
             if (cheapestItem) {
